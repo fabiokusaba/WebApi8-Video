@@ -2,6 +2,7 @@
 using WebApi8_Video.Data;
 using WebApi8_Video.Dto.Autor;
 using WebApi8_Video.Dto.Livro;
+using WebApi8_Video.Logs;
 using WebApi8_Video.Models;
 
 namespace WebApi8_Video.Services.Livro
@@ -202,12 +203,17 @@ namespace WebApi8_Video.Services.Livro
                 resposta.Dados = livros;
                 resposta.Mensagem = "Todos os livros foram coletados!";
 
+                Log.LogToFile("Listar Livros - Sucesso", "Livros listados com sucesso");
+
                 return resposta;
             }
             catch (Exception ex)
             {
                 resposta.Mensagem = ex.Message;
                 resposta.Status = false;
+
+                Log.LogToFile("Listar Livros - Error", ex.Message);
+
                 return resposta;
             }
         }
